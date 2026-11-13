@@ -1,0 +1,8 @@
+{
+  "enabledPlugins": {
+    "superpowers@superpowers-dev": true
+  },
+  "env": {
+    "SUPERPOWERS_DISABLE_TELEMETRY": "1"
+  }
+}

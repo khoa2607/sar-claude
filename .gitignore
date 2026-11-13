@@ -1,0 +1,47 @@
+# Python environment and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# Source datasets: read-only, never committed
+cphd/*
+!cphd/.gitkeep
+*.cphd
+*.crsd
+*.nitf
+*.ntf
+*.sicd
+*.sidd
+
+# Generated outputs and large artifacts
+outputs/
+artifacts/
+runs/
+tmp/
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.zarr/
+*.tif
+*.tiff
+*.png
+*.jpg
+!docs/**/*.png
+!docs/**/*.jpg
+*.log
+
+# Secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+credentials*
+secrets*
+
+# Local tool state
+.claude/settings.local.json
