@@ -24,6 +24,7 @@ Research → Plan → Implement → Test → Review → Document.
 - Codex is not used (decision D-007). Independent review of algorithm changes is done by the user or a fresh-context review pass.
 - Approved tooling only: Superpowers plugin (planning, TDD, debugging, verification) and the manual `/caveman` skill. Do not use Codex. Never install other skills, plugins or MCP servers without review and approval.
 - Do not commit unless asked. Git is initialized (branch `main`), no commits yet.
+- Run: `.venv/Scripts/python.exe -m pytest -q`; inspector: `.venv/Scripts/python.exe scripts/inspect_cphd.py cphd/<file>.cphd`.
 - Environment: use `.venv` (Python 3.13, `uv`); dependencies pinned in `requirements.lock.txt`. Ask before adding packages.
 
 ## Session start
@@ -46,4 +47,5 @@ Update `docs/PROGRESS.md` (done, in progress, tests run and results, blockers, n
 ## Documentation map
 - Status: `docs/PROGRESS.md` · Decisions: `docs/DECISIONS.md` · Roadmap: `docs/DEVELOPMENT_ROADMAP.md`
 - Phase 0A research: `docs/PHASE_0A_SUMMARY.md` (index), `docs/OPEN_SOURCE_REUSE.md`, `docs/RECOMMENDED_STACK.md`, `docs/SKILLS_RESEARCH.md`, `docs/SKILL_SECURITY_AUDIT.md`, `docs/TOKEN_OPTIMIZATION.md`, `docs/MULTI_AGENT_ARCHITECTURE.md`
+- Data: `docs/DATASETS.md` · M1 inspector: `docs/M1_INSPECTOR.md`
 - Planned, not yet written: `docs/ARCHITECTURE.md`, `docs/VALIDATION.md`, `docs/TECHNOLOGY.md`

@@ -6,7 +6,7 @@ Synthetic Aperture Radar Software-in-the-Loop research platform.
 A backend-only platform for multi-source CPHD processing and SAR image formation, with validated radar signal modeling where metadata supports it. The research goal is reproducible, modular signal-quality experiments on large SAR datasets.
 
 ## Status
-**Early stage: environment and research only. No SAR processing code exists yet.** Phase 0A research is complete; the environment is set up. See [docs/PROGRESS.md](docs/PROGRESS.md) for the current state and [docs/DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md) for proposed milestones (all proposed, none implemented).
+**Early stage. A read-only CPHD inspector (M1) exists; no SAR image formation yet.** Phase 0A research is complete; the environment is set up. See [docs/PROGRESS.md](docs/PROGRESS.md) for the current state and [docs/DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md) for proposed milestones (all proposed, none implemented).
 
 ## Planned: multi-source CPHD support
 Each CPHD source gets an adapter that maps to a common metadata model, with every parameter tagged measured, derived, assumed or unavailable. Source files are read-only. Scientific artifacts are stored separately from visualization images. Details: [docs/DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md).
@@ -29,6 +29,13 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.lock.txt
 ```
 
 Place CPHD files in `cphd/` (ignored by git; never modify them).
+
+## Inspect a CPHD file
+```powershell
+.venv\Scripts\python.exe scripts\inspect_cphd.py cphd\<file>.cphd --scan-signal
+.venv\Scripts\python.exe -m pytest -q
+```
+Options include `--perf`, `--thorough` and `--nonuniform-rtol`. Details: [docs/M1_INSPECTOR.md](docs/M1_INSPECTOR.md). Dev tools: `uv pip install --python .venv\Scripts\python.exe -r requirements-dev.lock.txt`.
 
 ## Launch Claude Code
 ```powershell

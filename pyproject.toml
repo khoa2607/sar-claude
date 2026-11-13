@@ -1,0 +1,11 @@
+[project]
+name = "sarsil"
+version = "0.1.0"
+description = "SAR-SIL: Synthetic Aperture Radar software-in-the-loop research platform"
+requires-python = ">=3.12"
+dependencies = ["sarkit==1.12.0", "numpy>=2.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+testpaths = ["tests"]
+markers = ["realdata: needs the local Umbra CPHD in cphd/ (skipped if absent)"]
