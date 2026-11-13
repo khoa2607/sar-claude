@@ -1,6 +1,6 @@
 # M1: Read-only CPHD Inspector
 
-Status: **finalized 2026-11-12** with the limitations below. Roadmap: [DEVELOPMENT_ROADMAP](DEVELOPMENT_ROADMAP.md). Progress: [PROGRESS](PROGRESS.md). Dataset: [DATASETS](DATASETS.md). Next: [M2_PLAN](M2_PLAN.md).
+Status: **finalized 2026-11-12, committed `8653056` and pushed**, with the limitations below. Roadmap: [DEVELOPMENT_ROADMAP](DEVELOPMENT_ROADMAP.md). Progress: [PROGRESS](PROGRESS.md). Dataset: [DATASETS](DATASETS.md). Next: [M2_PLAN](M2_PLAN.md).
 
 ## Use
 ```powershell

@@ -1,6 +1,6 @@
 # M2 Plan: SICD Reference and SAR Image Formation Preparation
 
-Status: **plan only; nothing implemented.** Requires your approval. Context: [M1_INSPECTOR](M1_INSPECTOR.md), [DATASETS](DATASETS.md), [OPEN_SOURCE_REUSE](OPEN_SOURCE_REUSE.md), [DEVELOPMENT_ROADMAP](DEVELOPMENT_ROADMAP.md).
+Status: **executed 2026-11-13; results in [M2_SICD_REFERENCE](M2_SICD_REFERENCE.md).** This file is the original plan; where it differs (for example the corner-agreement idea), the results document governs. Context: [M1_INSPECTOR](M1_INSPECTOR.md), [DATASETS](DATASETS.md), [OPEN_SOURCE_REUSE](OPEN_SOURCE_REUSE.md), [DEVELOPMENT_ROADMAP](DEVELOPMENT_ROADMAP.md).
 
 ## Goal
 Prepare a trustworthy reference for later image formation: obtain the Umbra SICD for DS-001, understand exactly how it was formed, check that it is geometrically consistent with the CPHD, and fix the comparison method before any formation code exists.

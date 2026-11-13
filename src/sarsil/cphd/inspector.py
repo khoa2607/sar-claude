@@ -19,6 +19,7 @@ import sarkit.cphd as sc
 from sarkit.verification import CphdConsistency
 
 from sarsil.provenance import Param, assumed, derived, measured, unavailable
+from sarsil.xmlparam import params_to_dict as _d, param as _param, q as _q, tag as _tag, text as _text, to_bool as _bool
 from . import aperture as ap
 from .chunking import DEFAULT_CHUNK_BUDGET_BYTES, plan_chunks, select_vectors
 from .errors import CphdError, MalformedFileError, UnsupportedFormatError
@@ -55,39 +56,6 @@ class InspectOptions:
     subaperture: tuple[int, int] | None = None
     nonuniform_rtol: float = ap.NONUNIFORM_RTOL   # flag when (dt_max - dt_min)/dt_median exceeds this
     measure_performance: bool = False             # adds a non-deterministic "performance" section
-
-
-# ---------------------------------------------------------------- XML helpers
-def _q(path: str) -> str:
-    return "/".join("{*}" + s for s in path.split("/"))
-
-
-def _text(node, path: str) -> str | None:
-    e = node.find(_q(path))
-    return None if e is None or e.text is None else e.text.strip()
-
-
-def _param(node, path: str, conv=str, unit: str | None = None, src: str | None = None) -> Param:
-    s = src or f"XML:{path}"
-    t = _text(node, path)
-    if t is None or t == "":
-        return unavailable(s, "element absent or empty")
-    try:
-        return measured(conv(t), unit, s)
-    except ValueError:
-        return unavailable(s, f"could not parse {t!r}")
-
-
-def _bool(t: str) -> bool:
-    return t.strip().lower() in ("true", "1")
-
-
-def _d(params: dict[str, Param]) -> dict:
-    return {k: v.to_dict() for k, v in params.items()}
-
-
-def _tag(d: dict, source: str, provenance: str = "derived") -> dict:
-    return {**d, "provenance": provenance, "source": source}
 
 
 # ---------------------------------------------------------------- file checks

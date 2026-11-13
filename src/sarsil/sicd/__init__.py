@@ -1,0 +1,1 @@
+"""SICD reading (read-only)."""

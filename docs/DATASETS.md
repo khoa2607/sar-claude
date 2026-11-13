@@ -21,7 +21,7 @@ Verified: 2026-11-12. Datasets live in `cphd/` (git-ignored, read-only; see [AGE
 |---|---|---|
 | `_CPHD.cphd` | 616,837,024 (588.3 MiB) | `cphd/2023-11-19-16-12-16_UMBRA-05_CPHD.cphd` |
 | `_METADATA.json` | 7,352 | `cphd/2023-11-19-16-12-16_UMBRA-05_METADATA.json` |
-| `_SICD.nitf` | 215,757,674 (205.8 MiB) | **Not downloaded.** Matching SICD for M2 validation. |
+| `_SICD.nitf` | 215,757,674 (205.8 MiB) | `cphd/2023-11-19-16-12-16_UMBRA-05_SICD.nitf` (downloaded 2026-11-13, size matches S3) |
 | `_SIDD.nitf` | 40,160,186 | Not downloaded |
 | `_GEC.tif` | 50,860,332 | Not downloaded |
 
@@ -54,6 +54,39 @@ Local SHA-256 (computed after download; byte count matches S3 exactly):
 - `CphdConsistency` with `thorough=True`: **97 checks, 80 passed, 0 failed, 17 skipped** (1.2 s). The `cphdcheck` command printed nothing and exited 0, which matches zero failures.
 - Not yet done: the 17 skipped checks were not examined; no comparison with the SICD.
 - `Reader.read_signal` returned an in-memory NumPy array of 614 MB, not a memory map. Nothing was printed to the console beyond summary scalars. M1 should decide whether to read per-chunk.
+
+### DS-001 SICD (downloaded 2026-11-13)
+SHA-256 `030e12f7abe05b200d948bf0eb3132c27fc346e8fd8d2c62f83507ed57de108f`. SICD 1.2.1, PFA, 5045 × 5345 `RE32F_IM32F`, RGAZIM slant plane. SARkit SICD consistency: 103 checks, 0 failed, 29 inapplicable. Read-only; details, comparison with the CPHD and limitations: [M2_SICD_REFERENCE](M2_SICD_REFERENCE.md). Polarization strings differ by source (CPHD X/X, SICD OTHER, STAC VV) and are not reconciled.
+
+### Restore on a new computer (verified 2026-11-13)
+Files are public (CC-BY-4.0 per the STAC item), no account needed. They go in `cphd/` (git-ignored). Base URL (spaces encoded):
+
+`https://umbra-open-data-catalog.s3.amazonaws.com/sar-data/tasks/Beet%20Piler%20-%20ND/13a1bac0-6d90-4a30-ada2-0fbfeb681aba/2023-11-19-16-12-16_UMBRA-05/2023-11-19-16-12-16_UMBRA-05` + suffix:
+
+| Suffix | Bytes | SHA-256 |
+|---|---|---|
+| `_CPHD.cphd` | 616,837,024 | `31bcefb4272ff59f351dee7fe35dc44608b199ce08960a27a154110773b55790` |
+| `_SICD.nitf` | 215,757,674 | `030e12f7abe05b200d948bf0eb3132c27fc346e8fd8d2c62f83507ed57de108f` |
+| `_METADATA.json` | 7,352 | `b61778569f9be03d486e3fc7930f4c2e6b08fee2c88ad10a41d90485e269fb6d` |
+
+From the repository root in PowerShell (skips files already present with the right size, resumes partial downloads, then checks every hash; `curl.exe` ships with Windows 10/11):
+
+```powershell
+$base = "https://umbra-open-data-catalog.s3.amazonaws.com/sar-data/tasks/Beet%20Piler%20-%20ND/13a1bac0-6d90-4a30-ada2-0fbfeb681aba/2023-11-19-16-12-16_UMBRA-05/2023-11-19-16-12-16_UMBRA-05"
+$files = @(
+  @{ s = "_CPHD.cphd";     n = 616837024; h = "31bcefb4272ff59f351dee7fe35dc44608b199ce08960a27a154110773b55790" },
+  @{ s = "_SICD.nitf";     n = 215757674; h = "030e12f7abe05b200d948bf0eb3132c27fc346e8fd8d2c62f83507ed57de108f" },
+  @{ s = "_METADATA.json"; n = 7352;      h = "b61778569f9be03d486e3fc7930f4c2e6b08fee2c88ad10a41d90485e269fb6d" }
+)
+New-Item -ItemType Directory -Force cphd | Out-Null
+foreach ($f in $files) {
+  $out = "cphd\2023-11-19-16-12-16_UMBRA-05" + $f.s
+  if (-not (Test-Path $out) -or (Get-Item $out).Length -ne $f.n) { curl.exe -sS --fail -C - -o $out ($base + $f.s) }
+  $got = (Get-FileHash -Algorithm SHA256 $out).Hash.ToLower()
+  "{0}: {1} bytes, sha256 {2}" -f (Split-Path $out -Leaf), (Get-Item $out).Length, $(if ($got -eq $f.h) { "OK" } else { "MISMATCH ($got)" })
+}
+```
+Expect three `OK` lines. A mismatch means a corrupt download: delete that file and rerun. The S3 listing shows the same sizes (the multipart ETags are not MD5s, so the SHA-256 values above were computed locally from the first verified download).
 
 ### M1 inspector findings
 Timing, geometry and frequency results from the inspector are in [M1_INSPECTOR](M1_INSPECTOR.md#results-on-ds-001-umbra-05). Notable: dt varies by 0.128% (no gaps); metadata polarization is X/X while the STAC item says VV.

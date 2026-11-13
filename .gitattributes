@@ -1,0 +1,23 @@
+# Normalize text to LF in the repository and in working trees (Windows and Linux/macOS checkouts agree).
+* text=auto eol=lf
+
+# Datasets and binaries are never converted.
+*.cphd binary
+*.crsd binary
+*.nitf binary
+*.ntf binary
+*.sicd binary
+*.sidd binary
+*.npy binary
+*.npz binary
+*.h5 binary
+*.hdf5 binary
+*.tif binary
+*.tiff binary
+*.png binary
+*.jpg binary
+
+# Windows scripts keep CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf

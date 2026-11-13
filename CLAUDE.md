@@ -23,9 +23,15 @@ Research → Plan → Implement → Test → Review → Document.
 - Prefer deterministic tests over discussion. Keep changes focused.
 - Codex is not used (decision D-007). Independent review of algorithm changes is done by the user or a fresh-context review pass.
 - Approved tooling only: Superpowers plugin (planning, TDD, debugging, verification) and the manual `/caveman` skill. Do not use Codex. Never install other skills, plugins or MCP servers without review and approval.
-- Do not commit unless asked. Git is initialized (branch `main`), no commits yet.
+- Do not commit unless asked. `main` tracks `origin/main` (github.com/khoa2607/sar-claude); never force-push.
 - Run: `.venv/Scripts/python.exe -m pytest -q`; inspector: `.venv/Scripts/python.exe scripts/inspect_cphd.py cphd/<file>.cphd`.
 - Environment: use `.venv` (Python 3.13, `uv`); dependencies pinned in `requirements.lock.txt`. Ask before adding packages.
+
+## Fresh machine (Windows)
+1. `git clone https://github.com/khoa2607/sar-claude.git`, then `uv venv --python 3.13 .venv` and `uv pip install --python .venv\Scripts\python.exe -r requirements.lock.txt -r requirements-dev.lock.txt`.
+2. Restore datasets with the PowerShell block in `docs/DATASETS.md` (hash-checked). Real-data tests skip when files are absent.
+3. Superpowers: once per machine run `claude plugin marketplace add obra/superpowers`; `.claude/settings.json` enables it for this project. Install nothing else.
+4. Verify: `.venv\Scripts\python.exe -m pytest -q` (99 passed with datasets).
 
 ## Session start
 1. This file and `AGENTS.md` load automatically.
@@ -47,5 +53,5 @@ Update `docs/PROGRESS.md` (done, in progress, tests run and results, blockers, n
 ## Documentation map
 - Status: `docs/PROGRESS.md` · Decisions: `docs/DECISIONS.md` · Roadmap: `docs/DEVELOPMENT_ROADMAP.md`
 - Phase 0A research: `docs/PHASE_0A_SUMMARY.md` (index), `docs/OPEN_SOURCE_REUSE.md`, `docs/RECOMMENDED_STACK.md`, `docs/SKILLS_RESEARCH.md`, `docs/SKILL_SECURITY_AUDIT.md`, `docs/TOKEN_OPTIMIZATION.md`, `docs/MULTI_AGENT_ARCHITECTURE.md`
-- Data: `docs/DATASETS.md` · M1 inspector: `docs/M1_INSPECTOR.md`
+- Data: `docs/DATASETS.md` · M1 inspector: `docs/M1_INSPECTOR.md` · M2 SICD reference: `docs/M2_SICD_REFERENCE.md`
 - Planned, not yet written: `docs/ARCHITECTURE.md`, `docs/VALIDATION.md`, `docs/TECHNOLOGY.md`

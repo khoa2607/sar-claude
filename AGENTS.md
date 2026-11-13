@@ -4,7 +4,7 @@ Applies to every agent working in this repository. Tool-specific behavior lives 
 
 ## Repository conventions
 - Language: Python 3.12+ (SARkit requires it). Project environment: `.venv` (CPython 3.13, created with `uv`); interpreter `.venv/Scripts/python.exe` on Windows. C++/CUDA only after profiling shows a need and a decision is logged in `docs/DECISIONS.md`.
-- Planned layout (not yet created): `src/sarsil/` package, `tests/`, `docs/`, `scripts/` for deterministic tools. Create directories only when the approved milestone needs them.
+- Layout: `src/sarsil/` (`provenance.py`, `xmlparam.py`, `cphd/`, `sicd/`, `geometry/`, `compare/`), `tests/` (pytest; `pyproject.toml` sets `pythonpath`, no package install), `scripts/` (CLI launchers), `docs/`. Create new directories only when the approved milestone needs them.
 - `cphd/` holds source datasets: **read-only, never modified, never committed**. Derived data goes elsewhere.
 - One approved milestone at a time. Keep changes small and reviewable. Do not refactor unrelated code.
 
